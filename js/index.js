@@ -40,15 +40,38 @@ const siteContent = {
 // Example: Update the img src for the logo
 let logo = document.getElementById("logo-img");
 logo.setAttribute('src', siteContent["nav"]["img-src"])
+// end example start code. ***
 
+// Setup some new text for the button click
+var newh1 = "Lambda<br> Lambda<br> Lambda";
 
 // Grab all the nav a's
-const navLinks = document.querySelectorAll('a');
+var navLinks = document.querySelectorAll('nav a');
 
 // Set them all acourdingly.
 for (let i = 0; i < navLinks.length; i++) {
   navLinks[i].textContent = siteContent["nav"][`nav-item-${i + 1}`];
+  navLinks[i].style.color = 'green'; // Change the color to green
+  
 }
+
+// Grab the full nav
+const myNav = document.querySelector('nav');
+
+// Create a two new nav item 
+const newNav1 = document.createElement('a');
+newNav1.href = '#';
+newNav1.textContent = 'Lambda';
+newNav1.style.color = 'green';
+
+const newNav2 = document.createElement('a');
+newNav2.href = '#';
+newNav2.textContent = 'Omega';
+newNav2.style.color = 'green';
+
+// Add the new nav items
+myNav.appendChild(newNav1);
+myNav.prepend(newNav2);
 
 // Setup the  cta image
 const ctaImg = document.getElementById('cta-img');
@@ -58,9 +81,11 @@ ctaImg.setAttribute('src', siteContent['cta']['img-src']);
 const ctaText = document.querySelector('h1');
 ctaText.innerHTML = siteContent['cta']['h1'];
 
-// Set up the 'Get Started' button
+// Setup the 'Get Started' button
 const getStarted = document.querySelector('button');
 getStarted.textContent = siteContent['cta']['button'];
+getStarted.style.borderRadius = '8px'; // Change the button radius 
+getStarted.addEventListener('click', updateH1);
 
 // Grab all the h4's
 const header4 = document.querySelectorAll('.text-content h4');
@@ -69,21 +94,21 @@ const content = document.querySelectorAll('.text-content p');
 // Get middle image
 const midImage = document.querySelector('.middle-img');
 
-// Set up the main content ******
+// Setup the main content ******
 let headerIndex = 0;
 let contentIndex = 0;
 for (let key in siteContent['main-content']) {
-  if (key.search('h4') != -1) {
+  if (key.search('h4') != -1) { // Find the h4's
     // Set the h4 header text
     header4[headerIndex].textContent = siteContent['main-content'][key];
     headerIndex++;
 
-  } else if (key.search('content') != -1) {
+  } else if (key.search('content') != -1) { // Find the content
     //Set the text for p 
     content[contentIndex].textContent = siteContent['main-content'][key];
     contentIndex++;
 
-  } else if (key === 'middle-img-src') {
+  } else if (key === 'middle-img-src') { // Find the middle img
     // Setup the middle image
     midImage.setAttribute('src', siteContent['main-content'][key]);
   }
@@ -110,4 +135,21 @@ const footer = document.querySelector('footer');
 footer.textContent = siteContent['footer']['copyright'];
 
 // End setup footer
+
+function updateH1() {
+  if (ctaText.innerHTML.search('DOM') != -1) {
+    ctaText.innerHTML = newh1;
+    ctaImg.setAttribute('src', 'img/nerds.bmp');
+    ctaImg.setAttribute('alt', "Classic 80's Movie");
+    midImage.setAttribute('src', 'img/nerds2.bmp');
+    midImage.setAttribute('alt', "A great moment for them all.");
+  } else {
+    ctaText.innerHTML = siteContent['cta']['h1'];
+    ctaImg.setAttribute('src', siteContent['cta']['img-src']);
+    ctaImg.setAttribute('alt', "Image of a code snippet.");
+    midImage.setAttribute('src', siteContent['main-content']['middle-img-src']);
+    midImage.setAttribute('alt', "Image of code snippets across the screen");
+  }
+
+}
 

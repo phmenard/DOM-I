@@ -4,9 +4,12 @@ let secondOnes = document.querySelector('#secondOnes');
 let msHundreds = document.querySelector('#msHundreds');
 let msTens = document.querySelector('#msTens');
 
+// Get the body
+const myBody = document.getElementsByTagName('body');
+
+
 // Get the digits parent
 const myDigits = document.querySelector('.digits');
-myDigits.setAttribute('style', 'border: 1px solid blue');
 
 // Creat a start button
 const startButton = document.createElement('button');
@@ -27,8 +30,24 @@ buttonDiv.style.justifyContent = 'space-between';
 buttonDiv.appendChild(startButton);
 buttonDiv.appendChild(resetButton);
 
+//myBody.appendChild(buttonDiv);
+
+// Create explosion img
+const explosionImg = document.createElement('img');
+
+explosionImg.src = 'https://media.tenor.com/images/ed059f472dfd77b8fc0e7f6f5bf9e61c/tenor.gif';
+
+
+// Add explosion flex box
+const explosionDiv = document.createElement('div');
+explosionDiv.style.display = 'flex';
+explosionDiv.style.justifyContent = 'center';
+explosionDiv.appendChild(explosionImg);
+
 // Add buttons to the digits parent
 myDigits.appendChild(buttonDiv);
+
+//explosionDiv.hidden = true;
 
 var timerHandler; // Hold the timer 
 
@@ -75,6 +94,10 @@ function myTimer() {
                             const colon = document.getElementById("colon")
                             colon.style.color = 'black';
 
+                           
+
+                            myDigits.appendChild(explosionDiv);
+                            
                             // End the timer
                             clearInterval(timerHandler);
 
@@ -117,5 +140,7 @@ function resetTimer() {
     // Reste the buttons
     startButton.disabled = false;
     resetButton.disabled = true;
+
+    myDigits.removeChild(explosionDiv);
 }
 
